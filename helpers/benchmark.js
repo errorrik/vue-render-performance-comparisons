@@ -3,7 +3,8 @@ var reportResults = require('./report-results')
 var now = require('./now')
 
 var items = generateArray(10000)
-var maxCount = 100
+var maxCount = 20
+// var maxCount = 100
 
 module.exports = function (example) {
   var count = 0
