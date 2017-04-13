@@ -3,11 +3,22 @@ import List from './List'
 import Benchmark from '../../../helpers/benchmark'
 
 
+function stringRender(items, done) {
+  let html = '<div><ul>';
+  for (let i = 0; i < items.length; i++) {
+    html += '<li>hi</li>'
+  }
+  html += '</ul></div>'
 
+  let root = document.querySelector('#root');
 
+  root.innerHTML = html;
 
-/* eslint-disable no-new */
-new Benchmark((items, done) => {
+  done();
+
+}
+
+function sanRender(items, done) {
 
   let App = defineComponent({
 
@@ -17,9 +28,7 @@ new Benchmark((items, done) => {
 
     template: `
       <div id='app'>
-        <div><ul>
-            <li san-for='item in items'>hi</li>
-        </ul></div>
+        <list items='{{items}}' />
       </div>
     `,
 
@@ -36,17 +45,10 @@ new Benchmark((items, done) => {
   })
   .attach(document.querySelector('#root'));
 
-  // let html = '<div><ul>';
-  // for (let i = 0; i < 10000; i++) {
-  //   html+= '<li>hi</li>'
-  // }
-  // html += '</ul></div>'
+}
 
-  // document.querySelector('#root').innerHTML = html;
-  // done();
+var fn = location.search.indexOf('string') > -1 ? stringRender : sanRender;
 
-
-})
-
-
+/* eslint-disable no-new */
+new Benchmark(fn);
 
